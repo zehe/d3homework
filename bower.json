@@ -1,0 +1,19 @@
+{
+  "name": "d3homework",
+  "homepage": "https://heiseric.com",
+  "authors": [
+    "zh700@nyu.edu"
+  ],
+  "description": "this is just a course homework for big data",
+  "main": "index.html main.js style.css",
+  "keywords": [
+    "big",
+    "data"
+  ],
+  "license": "NYU",
+  "private": true,
+  "dependencies": {
+    "d3": "^3.5.16",
+    "jQuery": "^2.2.3"
+  }
+}
