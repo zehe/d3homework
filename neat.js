@@ -139,8 +139,11 @@ d3.csv("./car.csv", function(values){
     });
     
     $('#update').click(function(){    
+        checkValidate();
+        var html = document.getElementById("alert").innerHTML;
         
-        var filtereddata = values.filter(function(d){ return d['mpg'] > +$('#mpg-min').val() && d['mpg'] < +$('#mpg-max').val()});
+        if(html == "Updated"){
+            var filtereddata = values.filter(function(d){ return d['mpg'] >= +$('#mpg-min').val() && d['mpg'] <= +$('#mpg-max').val()});
         
         var newcir = svg.selectAll("circle").data(filtereddata);
         
@@ -157,9 +160,26 @@ d3.csv("./car.csv", function(values){
         .attr("cy", function (d) { return y(d[$('#sel-y').val()]);})
         
         newcir.exit().remove();
-
+        }
     })
     
     cir.exit().remove(); 
     });
 });
+
+function checkValidate() {
+    var min, max, text;
+    
+    min = $('#mpg-min').val();
+    max = $('#mpg-max').val();
+    text = "Updated";
+    
+    if(isNaN(min) || isNaN(max)){
+        text = "This Query input can only accept number!";
+    }else if( min > max){
+        text = "Min should be smaller than Max";
+    }
+    
+    document.getElementById("alert").innerHTML = text; 
+    
+}
