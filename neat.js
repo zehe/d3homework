@@ -116,6 +116,8 @@ d3.csv("./car.csv", function(values){
             .call(xAxis)
             .select(".label")
             .text($('#sel-x').val());
+        
+        update();
 
     });
     
@@ -136,10 +138,18 @@ d3.csv("./car.csv", function(values){
             .call(yAxis)
             .select(".label")
             .text($('#sel-y').val());
+        
+        update();
     });
     
     $('#update').click(function(){    
-        checkValidate();
+        checkValidate();   
+        update();
+    })
+    
+    cir.exit().remove(); 
+    
+    function update(){
         var html = document.getElementById("alert").innerHTML;
         
         if(html == "Updated"){
@@ -147,11 +157,25 @@ d3.csv("./car.csv", function(values){
         
         var newcir = svg.selectAll("circle").data(filtereddata);
         
+//        newcir
+//        .enter()
+//        .append("circle")
+//        .transition()
+//        .duration(1000)
+            
         newcir
         .enter()
         .append("circle")
+        .attr("class", "circle")
+        .attr("cx", function (d) { return x(d[$('#sel-x').val()]);})
+        .attr("cy", function (d) { return y(d[$('#sel-y').val()]);})
+        .attr("r", function () { return 2; })
+        .on("click", function(d){
+            $("#hovered").html(d.name);
+        })
         .transition()
         .duration(1000)
+        
         
         newcir
         .transition()
@@ -161,9 +185,9 @@ d3.csv("./car.csv", function(values){
         
         newcir.exit().remove();
         }
-    })
+    }
     
-    cir.exit().remove(); 
+    
     });
 });
 
