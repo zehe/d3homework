@@ -150,7 +150,14 @@ d3.csv("./car.csv", function(values){
         .transition()
         .duration(1000)
         
+        newcir
+        .transition()
+        .duration(1000)
+        .attr("cx", function (d) { return x(d[$('#sel-x').val()]);})
+        .attr("cy", function (d) { return y(d[$('#sel-y').val()]);})
+        
         newcir.exit().remove();
+
     })
     
     cir.exit().remove(); 
